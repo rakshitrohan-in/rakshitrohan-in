@@ -6,7 +6,26 @@ Currently building things that prove I can do what my resume says I can do.
 
 ## 🔍 What I'm working on
 
-**AML Transaction Monitoring System** — a rule-based detection engine in SQL over 6M+ synthetic transactions (PaySim), mapped to real AML typologies: structuring, velocity, layering, dormant-account activation. Alerts surfaced through a Power BI dashboard, with false-positive analysis against ground-truth fraud labels. Because "I know SQL" is a claim, and a public repo is evidence.
+**AML Transaction Monitoring System** — SQL rule-based detection engine over 6M+ synthetic transactions (PaySim), with a Power BI alert dashboard on the way.
+
+## Status
+- ✅ Setup & data load (6.36M rows) — `01_setup.sql`
+- ✅ Data profiling — `02_Data_Profiling.sql`
+- ✅ Exploratory analysis, incl. fraud-label insights — `03_Exploratory_Analysis.sql`
+- ✅ Detection rules v1 — 6 behavior-based rules — `04_fraud_detection_rules.sql`
+- 🔧 In progress: CTEs, window functions, structuring/velocity rules, risk scoring
+- ⏳ Up next: Power BI dashboard
+
+## Key finding
+PaySim's built-in `isFlaggedFraud` system catches only 16 of 8,213 fraudulent 
+transactions (~0.2%) — the core motivation for this project.
+
+## Note on methodology
+Detection rules (`04`) use only transaction behavior — amount, type, balances, 
+timing. They never reference the `isFraud` ground-truth label, since a real 
+monitoring system wouldn't have it. Fraud-label analysis lives separately in 
+`03` and later evaluation queries, where rule performance gets measured 
+against it.
 
 → [aml-transaction-monitoring](http://github.com/rakshitrohan-in/aml-transaction-monitoring)
 
